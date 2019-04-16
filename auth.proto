@@ -55,7 +55,7 @@ message User {
     string firstname = 4;
     string lastname = 5;
     string name = 6;
-    string picture = 6;
+    string picture = 7;
     string password = 8;
     string passwordHashMethod = 9;
     string passwordId = 10;
