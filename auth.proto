@@ -5,10 +5,14 @@ package auth;
 import "google/api/annotations.proto";
 
 service AuthService {
-  rpc IsAuthenticated(AuthenticateRequest) returns (ChargeResponse) {}
+  rpc IsAuthenticated(AuthenticateRequest) returns (AuthenticateResponse) {}
 }
 
 message AuthenticateRequest {
+  string sessionId = 1;
+}
+
+message AuthenticateResponse {
   User user = 1;
   bool isAuthenticated = 2;
 }
