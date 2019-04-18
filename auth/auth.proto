@@ -18,7 +18,6 @@ message AuthenticateResponse {
 }
 
 message User {
-    // Auth
   message Auth {
     message ProfileName {
       string familyName = 1;
