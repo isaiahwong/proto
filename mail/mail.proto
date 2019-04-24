@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package mail;
 
-import "google/api/annotations.proto";
-
 service MailService {
   rpc SendAccountVerification(EmailRequest) returns (Empty) {}
 
@@ -19,3 +17,4 @@ message EmailRequest {
   string email = 1;
 }
 
+message Empty {}
