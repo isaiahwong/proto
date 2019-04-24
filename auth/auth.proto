@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package auth;
 
-import "google/api/annotations.proto";
-
 service AuthService {
   rpc IsAuthenticated(AuthenticateRequest) returns (AuthenticateResponse) {}
 }
