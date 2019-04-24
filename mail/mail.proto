@@ -5,10 +5,17 @@ package mail;
 import "google/api/annotations.proto";
 
 service MailService {
-  rpc SendAccountVerification(AccountVerificationRequest) returns (Empty) {}
+  rpc SendAccountVerification(EmailRequest) returns (Empty) {}
+
+  rpc RegisterMailingList(EmailRequest) returns (Empty) {
+    option http = {
+      post: "/v1/mail/r",
+      body: "*"
+    };
+  }
 }
 
-message AccountVerificationRequest {
+message EmailRequest {
   string email = 1;
 }
 
