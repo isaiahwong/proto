@@ -5,16 +5,20 @@ package mail;
 service MailService {
   rpc SendAccountVerification(EmailRequest) returns (Empty) {}
 
-  rpc RegisterMailingList(EmailRequest) returns (Empty) {
+  rpc RegisterMailingList(EmailRequest) returns (EmailResponse) {
     option http = {
-      post: "/v1/mail/r",
+      post: "/api/v1/mail/r",
       body: "*"
     };
   }
 }
 
 message EmailRequest {
-  string email = 1;
+  string email = 0;
+}
+
+message EmailResponse {
+  string message = 0;
 }
 
 message Empty {}
