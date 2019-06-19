@@ -1,5 +1,5 @@
 syntax = "proto3";
-
+  
 package mail;
 
 service MailService {
@@ -9,6 +9,7 @@ service MailService {
 
 message AccountVerificationRequest {
   string email = 1;
+  string verificationToken = 2;
 }
 
 message Empty {}
