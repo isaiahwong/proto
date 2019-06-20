@@ -3,7 +3,7 @@ syntax = "proto3";
 package mail;
 
 service MailService {
-  rpc SendAccountVerification(EmailRequest) returns (Empty) {}
+  rpc SendAccountVerification(AccountVerificationRequest) returns (Empty) {}
 
   rpc RegisterMailingList(EmailRequest) returns (EmailResponse) {
     option http = {
