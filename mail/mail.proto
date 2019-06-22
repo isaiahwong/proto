@@ -3,7 +3,7 @@ syntax = "proto3";
 package mail;
 
 service MailService {
-  rpc SendAccountVerification(AccountVerificationRequest) returns (Empty) {}
+  rpc SendAccountVerification(AccountVerificationRequest) returns (EmailResponse) {}
 
   rpc RegisterMailingList(EmailRequest) returns (EmailResponse) {
     option http = {
@@ -23,7 +23,13 @@ message EmailRequest {
 }
 
 message EmailResponse {
-  string message = 0;
+  enum ServingStatus {
+    SUCCESS = 0;
+    FAILED = 1;
+    NOT_SERVING = 2;
+  }
+  ServingStatus status = 1;
 }
+
 
 message Empty {}
