@@ -11,8 +11,8 @@ service MailService {
   }
 
   rpc SendAccountVerification(AccountVerificationRequest) returns (EmailResponse) {}
-  rpc sendResetPassword(ResetPasswordRequest) returns (EmailResponse) {}
-  rpc sendResetPasswordConfirmation(EmailRequest) returns (EmailResponse) {}
+  rpc SendResetPassword(ResetPasswordRequest) returns (EmailResponse) {}
+  rpc SendResetPasswordConfirmation(EmailRequest) returns (EmailResponse) {}
 }
 
 message EmailResponse {
