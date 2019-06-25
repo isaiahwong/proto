@@ -3,23 +3,16 @@ syntax = "proto3";
 package mail;
 
 service MailService {
-  rpc SendAccountVerification(AccountVerificationRequest) returns (EmailResponse) {}
-
   rpc RegisterMailingList(EmailRequest) returns (EmailResponse) {
     option http = {
       post: "/api/v1/mail/r",
       body: "*"
     };
   }
-}
 
-message AccountVerificationRequest {
-  string email = 1;
-  string verificationToken = 2;
-}
-
-message EmailRequest {
-  string email = 0;
+  rpc SendAccountVerification(AccountVerificationRequest) returns (EmailResponse) {}
+  rpc sendResetPassword(ResetPasswordRequest) returns (EmailResponse) {}
+  rpc sendResetPasswordConfirmation(EmailRequest) returns (EmailResponse) {}
 }
 
 message EmailResponse {
@@ -30,6 +23,23 @@ message EmailResponse {
   }
   ServingStatus status = 1;
 }
+
+message AccountVerificationRequest {
+  string email = 1;
+  string verificationToken = 2;
+}
+
+message ResetPasswordRequest {
+  string token = 1;
+  string passwordId = 2;
+  string email = 3;
+}
+
+message EmailRequest {
+  string email = 0;
+}
+
+
 
 
 message Empty {}
