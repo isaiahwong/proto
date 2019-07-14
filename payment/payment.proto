@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package payment;
+
+service PaymentService {
+  rpc Webhook(PaymentIntent) returns (Empty) {
+    option http = {
+      post: "/api/v1/payment/webhook/payment/intent",
+      body: "*"
+    };
+  }
+}
+
+
+message PaymentIntent {
+  
+}
+
+message Empty {}
