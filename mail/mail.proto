@@ -39,7 +39,4 @@ message EmailRequest {
   string email = 0;
 }
 
-
-
-
 message Empty {}
