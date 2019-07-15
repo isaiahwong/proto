@@ -3,17 +3,16 @@ syntax = "proto3";
 package payment;
 
 service PaymentService {
-  rpc Webhook(PaymentIntent) returns (Empty) {
+  rpc PaymentIntentWebhook(PaymentIntent) returns (Empty) {
     option http = {
-      post: "/api/v1/payment/webhook/payment/intent",
+      post: "/api/v1/payment/stripe/webhook/paymentintent",
       body: "*"
     };
   }
 }
 
-
 message PaymentIntent {
-  
+  bytes body = 1;
 }
 
 message Empty {}
