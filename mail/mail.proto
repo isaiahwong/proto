@@ -13,6 +13,8 @@ service MailService {
   rpc SendAccountVerification(AccountVerificationRequest) returns (EmailResponse) {}
   rpc SendResetPassword(ResetPasswordRequest) returns (EmailResponse) {}
   rpc SendResetPasswordConfirmation(EmailRequest) returns (EmailResponse) {}
+
+  rpc SendPaymentDecline(PaymentRequest) returns (EmailResponse);
 }
 
 message EmailResponse {
@@ -39,7 +41,10 @@ message EmailRequest {
   string email = 0;
 }
 
-
+message PaymentRequest {
+  string email = 0;
+  byte payment = 0;
+}
 
 
 message Empty {}
