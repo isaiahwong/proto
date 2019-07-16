@@ -46,5 +46,4 @@ message PaymentRequest {
   byte payment = 0;
 }
 
-
 message Empty {}
