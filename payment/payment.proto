@@ -2,12 +2,21 @@ syntax = "proto3";
 
 package payment;
 
-service PaymentService {
-  rpc CreatePayment(Request) returns (CreatePaymentResponse);
+import "./schema.proto";
+import "./stripe.proto";
 
-  rpc SetupIntent(PaymentIntent) returns (SetupIntentResponse) {
+service PaymentService {
+  rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
+
+  rpc AddCard(AddCardRequest) returns (AddCardResponse) {
     option http = {
-      post: "/api/v1/payment/intent/setup/",
+      post: "/api/v1/payment/s/card/add",
+    };
+  }
+
+  rpc SetupIntent(SetupIntentRequest) returns (SetupIntentResponse) {
+    option http = {
+      post: "/api/v1/payment/s/intent/setup/",
     };
   }
 
@@ -17,147 +26,6 @@ service PaymentService {
       body: "*"
     };
   }
-}
-
-message Billing {
-  message Address {
-    string city = 1;
-    string country = 2;
-    string line1 = 3;
-    string line2 = 4;
-    int32 postal_code = 5;
-    string state = 6;
-  }
-  Address address = 1;
-  string email = 2;
-  string name = 3;
-  string phone = 4;
-}
-
-message FraudDetails {
-  string stripe_report = 1;
-  string user_report = 2;
-}
-
-message Card {
-  string brand = 1;
-  strimg country = 2;
-  int32 exp_month = 3;
-  int32 exp_year = 4;
-  string fingerprint = 5;
-  string funding = 6;
-  int32 last4 = 7;
-}
-
-message PaymentMethodDetails {
-  Card card = 1;
-  string type = 2;
-}
-
-message LastPaymentError {
-  string code
-}
-
-message LastPaymentError {
-  string code = 0;
-  string doc_url = 1;
-  string message = 2;
-  string type = 3;
-}
-
-message Charge {
-  string id = 1;
-  string object = 2; 
-  int64 amount = 3;
-  int64 amount_refunded = 4;
-  string balance_transaction = 5;
-  Billing billing_details = 6;
-  bool captured = 7;
-  int32 created = 8;
-  string currency = 9;
-  string customer = 10;
-  string description = 11;
-  string destination = 12;
-  strubg dispute = 13;
-  string failure_code = 14;
-  string failure_message = 15;
-  FraudDetails fraud_details = 16;
-  bool paid = 17;
-  string payment_intent = 18;
-  string payment_method = 19;
-  PaymentMethodDetails payment_method_details = 20;
-  string receipt_email = 21;
-  string receipt_number = 22;
-  string receipt_url = 23;
-  string review = 24;
-  string status = 25;
-}
-
-message Charges {
-  string object = 1;
-  repeated Charge data = 2;
-  bool has_more = 3;
-  int32 total_count = 4;
-  string url = 6;
-}
-
-message PaymentIntent {
-  message Metadata {
-    string transaction = 1;
-  }
-
-  string id = 1;
-  string object = 2;
-  int64 amount = 3;
-  int32 canceled_at = 4;
-  string cancellation_reason = 5;
-  string capture_method = 6;
-  Charges charges = 7;
-  string client_secret = 8;
-  string confirmation_method = 9;
-  int32 created = 10;
-  string currency = 11;
-  string customer = 12;
-  string description = 13;
-  string invoice = 14;
-  LastPaymentError last_payment_error = 15;
-  bool livemode = 16;
-  Metadata metadata = 17;
-  string payment_method = 18;
-  repeated string payment_method_types = 19;
-  string receipt_email = 20;
-  string review = 21;
-  string status = 22;
-}
-
-message Transaction {
-  message Lines {
-    message Data {
-      string id = 1;
-      int64 amount = 2;
-      int32 quantity = 3;
-      byte metadata = 4;
-      string currency = 5;
-    }
-    repeated Data data = 1;
-  }
-
-  string object = 1;
-  string payment = 2;
-  string user = 3;
-  string email = 4;
-  string provider = 5;
-  string stripe_payment_intent_id = 6;
-  PaymentIntent stripe_payment_intent = 7;
-  string currency = 8;
-  Lines lines = 9;
-  int64 subtotal = 10;
-  int64 total = 11;
-  string coupon = 12;
-  string status = 13;
-  string ip = 14;
-  int32 updated = 15;
-  int32 created = 16;
 }
 
 message CreatePaymentRequest {
@@ -175,6 +43,15 @@ message CreatePaymentResponse {
   repeated Transaction transactions = 7;
   int32 updated = 15;
   int32 created = 16;
+}
+
+message AddCardRequest {
+  SetupIntent setup_intent = 0;
+}
+
+message AddCardResponse {
+  repeated PaymentMethod all_cards = 0;
+  InvoiceSettings invoice_settings = 1; // default payment
 }
 
 message SetupIntentRequest {
