@@ -16,7 +16,7 @@ service PaymentService {
 
   rpc SetupIntent(SetupIntentRequest) returns (SetupIntentResponse) {
     option http = {
-      post: "/api/v1/payment/s/intent/setup/",
+      post: "/api/v1/payment/s/intent/setup",
     };
   }
 
