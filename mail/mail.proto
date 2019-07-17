@@ -43,7 +43,7 @@ message EmailRequest {
 
 message PaymentRequest {
   string email = 0;
-  byte payment = 0;
+  bytes payment = 1;
 }
 
 message Empty {}
