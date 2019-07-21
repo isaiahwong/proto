@@ -20,6 +20,13 @@ service PaymentService {
     };
   }
 
+  rpc TestStripeWebhook(PaymentIntentRequest) returns (Response) {
+    option http = {
+      post: "/api/v1/payment/stripe/webhook/test",
+      body: "*"
+    };
+  }
+
   rpc PaymentIntentWebhook(PaymentIntentRequest) returns (Response) {
     option http = {
       post: "/api/v1/payment/stripe/webhook/paymentintent",
