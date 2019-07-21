@@ -58,16 +58,16 @@ message User {
     string name = 6;
     string picture = 7;
     string password = 8;
-    string passwordHashMethod = 9;
-    string passwordId = 10;
-    string passwordResetToken = 11;
-    int32 passwordResetExpires = 12;
-    int32 passwordModified = 13;
+    string password_hash_method = 9;
+    string password_id = 10;
+    string password_reset_token = 11;
+    int32 password_reset_expires = 12;
+    int32 password_modified = 13;
 
     bool verified = 14;
-    int32 verifiedDate = 15;
-    string verificationToken = 16;
-    int32 verificationTokenExpires = 17;
+    int32 verified_date = 15;
+    string verification_token = 16;
+    int32 verification_token_expires = 17;
 
     int32 captcha_challenge_ts = 18;
   }
@@ -75,22 +75,22 @@ message User {
   // Preferences
   message Preferences {
     message EmailNotifications {
-      bool unsubscribeFromAll = 1;
+      bool unsubscribe_from_all = 1;
     }
 
     message PushNotifications {
-      bool unsubscribeFromAll = 1; 
+      bool unsubscribe_from_all = 1; 
     }
 
     string language = 1;
-    EmailNotifications emailNotifications = 2;
-    PushNotifications pushNotifications = 3;
+    EmailNotifications email_notifications = 2;
+    PushNotifications push_notifications = 3;
   }
 
   Auth auth = 1;
   Preferences preferences = 2;
   int32 created_at = 3;
   int32 updated_at = 4;
-  int32 loggedIn = 5;
-  string loggedInIp = 6;
+  int32 logged_in = 5;
+  string logged_in_ip = 6;
 }
