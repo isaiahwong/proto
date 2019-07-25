@@ -33,3 +33,14 @@ message Transaction {
   double updated = 15;
   double created = 16;
 }
+
+message Payment {
+  string object = 0;
+  string user = 1;
+  string email = 2;
+  string default_provider = 3;
+  string stripe_customer = 4;
+  repeated Transaction transactions = 5;
+  double updated = 6;
+  double created = 7;
+}

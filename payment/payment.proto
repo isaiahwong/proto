@@ -8,6 +8,13 @@ import "./stripe.proto";
 service PaymentService {
   rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
 
+  rpc RetrievePayment(AddCardRequest) returns (AddCardResponse) {
+    option http = {
+      post: "/api/v1/payment/retrieve",
+    };
+  }
+
+
   rpc AddCard(AddCardRequest) returns (AddCardResponse) {
     option http = {
       post: "/api/v1/payment/s/card/add",
@@ -52,8 +59,17 @@ message CreatePaymentResponse {
   int32 created = 16;
 }
 
+message RetrievePaymentRequest {
+  string user_id = 0;
+}
+
+message RetrievePaymentResponse {
+  Payment payment = 0;
+}
+
 message AddCardRequest {
-  SetupIntent setup_intent = 0;
+  string payment_method = 0;
+  string user_id = 1;
 }
 
 message AddCardResponse {
@@ -62,8 +78,8 @@ message AddCardResponse {
 }
 
 message SetupIntentRequest {
-  string customer_id = 1;
-  string user_id = 2;
+  string user_id = 0;
+  bool on_session  = 1;
 }
 
 message SetupIntentResponse {
