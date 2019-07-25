@@ -8,7 +8,7 @@ import "./stripe.proto";
 service PaymentService {
   rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
 
-  rpc RetrievePayment(AddCardRequest) returns (AddCardResponse) {
+  rpc RetrievePayment(RetrievePaymentRequest) returns (RetrievePaymentResponse) {
     option http = {
       post: "/api/v1/payment/retrieve",
     };
