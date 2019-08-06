@@ -91,7 +91,11 @@ message AddCardResponse {
 
 message OnSessionChargeRequest {
   string user_id = 0;
-  Items items = 1;
+  string email = 1;
+  Items items = 2;
+  string currency = 3;
+  double subtotal = 4;
+  double total = 5;
 }
 
 message OnSessionChargeResponse {

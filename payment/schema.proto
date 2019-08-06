@@ -6,7 +6,8 @@ import "./stripe.proto";
 
 message Items {
   message Data {
-    string id = 1;
+    string id = 0;
+    string name = 1;
     double amount = 2;
     double quantity = 3;
     bytes metadata = 4;
