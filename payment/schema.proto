@@ -4,18 +4,24 @@ package payment;
 
 import "./stripe.proto";
 
-message Transaction {
-  message Lines {
-    message Data {
-      string id = 1;
-      double amount = 2;
-      double quantity = 3;
-      bytes metadata = 4;
-      string currency = 5;
-    }
-    repeated Data data = 1;
+message Items {
+  message Data {
+    string id = 1;
+    double amount = 2;
+    double quantity = 3;
+    bytes metadata = 4;
+    string currency = 5;
   }
+  string item_id = 0;
+  string description = 1;
+  bytes metadata = 2;
+  double quantity = 3;
+  double total = 4;
+  string currency = 5;
+  repeated Data data = 6;
+}
 
+message Transaction {
   string object = 1;
   string payment = 2;
   string user = 3;
@@ -24,7 +30,7 @@ message Transaction {
   string stripe_payment_intent_id = 6;
   PaymentIntent stripe_payment_intent = 7;
   string currency = 8;
-  Lines lines = 9;
+  Items items = 9;
   double subtotal = 10;
   double total = 11;
   string coupon = 12;

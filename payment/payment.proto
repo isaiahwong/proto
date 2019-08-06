@@ -6,6 +6,9 @@ import "./schema.proto";
 import "./stripe.proto";
 
 service PaymentService {
+  /*
+   * Payment
+   */
   rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
 
   rpc RetrievePayment(RetrievePaymentRequest) returns (RetrievePaymentResponse) {
@@ -15,6 +18,9 @@ service PaymentService {
   }
 
 
+  /*
+   * Stripe
+   */
   rpc AddCard(AddCardRequest) returns (AddCardResponse) {
     option http = {
       post: "/api/v1/payment/s/card/add",
@@ -24,6 +30,12 @@ service PaymentService {
   rpc SetupIntent(SetupIntentRequest) returns (SetupIntentResponse) {
     option http = {
       post: "/api/v1/payment/s/intent/setup",
+    };
+  }
+
+  rpc OnSessionCharge(OnSessionChargeRequest) returns (Response) {
+    option http = {
+      post: "/api/v1/payment/s/onsession/charge",
     };
   }
 
@@ -75,6 +87,16 @@ message AddCardRequest {
 message AddCardResponse {
   repeated PaymentMethod all_cards = 0;
   InvoiceSettings invoice_settings = 1; // default payment
+}
+
+message OnSessionChargeRequest {
+  string user_id = 0;
+  Items items = 1;
+}
+
+message OnSessionChargeResponse {
+  string user_id = 0;
+  Items items = 1;
 }
 
 message SetupIntentRequest {
