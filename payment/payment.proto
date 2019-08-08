@@ -33,7 +33,7 @@ service PaymentService {
     };
   }
 
-  rpc OnSessionCharge(OnSessionChargeRequest) returns (Response) {
+  rpc Charge(OnSessionChargeRequest) returns (OnSessionChargeResponse) {
     option http = {
       post: "/api/v1/payment/s/onsession/charge",
     };
@@ -99,8 +99,7 @@ message OnSessionChargeRequest {
 }
 
 message OnSessionChargeResponse {
-  string user_id = 0;
-  Items items = 1;
+  PaymentIntent payment_intent = 0;
 }
 
 message SetupIntentRequest {
