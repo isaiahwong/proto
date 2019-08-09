@@ -17,7 +17,6 @@ service PaymentService {
     };
   }
 
-
   /*
    * Stripe
    */
@@ -33,7 +32,7 @@ service PaymentService {
     };
   }
 
-  rpc Charge(OnSessionChargeRequest) returns (OnSessionChargeResponse) {
+  rpc Charge(OnChargeRequest) returns (OnChargeResponse) {
     option http = {
       post: "/api/v1/payment/s/onsession/charge",
     };
@@ -89,16 +88,17 @@ message AddCardResponse {
   InvoiceSettings invoice_settings = 1; // default payment
 }
 
-message OnSessionChargeRequest {
+message OnChargeRequest {
   string user_id = 0;
   string email = 1;
   Items items = 2;
   string currency = 3;
   double subtotal = 4;
   double total = 5;
+  bool off_session = 6;
 }
 
-message OnSessionChargeResponse {
+message OnChargeResponse {
   PaymentIntent payment_intent = 0;
 }
 
