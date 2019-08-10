@@ -32,7 +32,7 @@ service PaymentService {
     };
   }
 
-  rpc Charge(OnChargeRequest) returns (OnChargeResponse) {
+  rpc StripeCharge(OnStripeChargeRequest) returns (OnStripeChargeResponse) {
     option http = {
       post: "/api/v1/payment/s/onsession/charge",
     };
@@ -91,7 +91,7 @@ message AddCardResponse {
   bool success = 2;
 }
 
-message OnChargeRequest {
+message OnStripeChargeRequest {
   string user_id = 0;
   string email = 1;
   Items items = 2;
@@ -101,7 +101,7 @@ message OnChargeRequest {
   bool off_session = 6;
 }
 
-message OnChargeResponse {
+message OnStripeChargeResponse {
   PaymentIntent payment_intent = 0;
   bool success = 1;
 }
@@ -122,7 +122,6 @@ message PaymentIntentRequest {
 
 message Response {
   bool success = 0;
-  bool status = 1;
 }
 
 message Empty {}
