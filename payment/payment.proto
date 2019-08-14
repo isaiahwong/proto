@@ -17,6 +17,12 @@ service PaymentService {
     };
   }
 
+  rpc Refund(RefundRequest) returns (RefundResponse) {
+    option http = {
+      post: "/api/v1/payment/refund",
+    };
+  }
+
   /*
    * Stripe
    */
@@ -34,7 +40,7 @@ service PaymentService {
 
   rpc StripeCharge(OnStripeChargeRequest) returns (OnStripeChargeResponse) {
     option http = {
-      post: "/api/v1/payment/s/onsession/charge",
+      post: "/api/v1/payment/s/charge",
     };
   }
 
@@ -54,35 +60,38 @@ service PaymentService {
 }
 
 message CreatePaymentRequest {
-  string user_id = 1;
+  string user = 1;
   string email = 2;
 }
 
 message CreatePaymentResponse {
   bool success = 0;
-  string object = 1;
-  string user = 2;
-  string email = 3;
-  string default_provider = 4;
-  string stripe_customer = 5;
-  string stripe = 6;
-  repeated Transaction transactions = 7;
-  int32 updated = 15;
-  int32 created = 16;
+  Payment payment = 1;
 }
 
 message RetrievePaymentRequest {
-  string user_id = 0;
+  string user = 0;
 }
 
 message RetrievePaymentResponse {
-  Payment payment = 0;
-  bool success = 1;
+  bool success = 0;
+  Payment payment = 1;
+}
+
+message RefundRequest {
+  string user = 0;
+  string transaction = 1;
+}
+
+message RefundResponse {
+  bool success = 0;
+  Refund refund = 1;
+  Transaction transaction = 2;
 }
 
 message AddCardRequest {
   string payment_method = 0;
-  string user_id = 1;
+  string user = 1;
 }
 
 message AddCardResponse {
@@ -92,7 +101,7 @@ message AddCardResponse {
 }
 
 message OnStripeChargeRequest {
-  string user_id = 0;
+  string user = 0;
   string email = 1;
   Items items = 2;
   string currency = 3;
@@ -107,7 +116,7 @@ message OnStripeChargeResponse {
 }
 
 message SetupIntentRequest {
-  string user_id = 0;
+  string user = 0;
   bool on_session  = 1;
 }
 

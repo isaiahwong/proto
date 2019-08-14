@@ -22,32 +22,56 @@ message Items {
   repeated Data data = 6;
 }
 
+message Refund {
+  string id = 0;
+  string object = 1;
+  string transaction = 2;
+  string refund = 3;
+  string currency = 4;
+  string reason = 5;
+  string status = 6;
+  string failure_refund = 7;
+  string failure_reason = 8;
+  double updated = 16;
+  double created = 17;
+}
+
 message Transaction {
+  message TransactionError {
+    string error = 0;
+    string type = 1;
+    string message = 2;
+    string stripe_error_code = 3;
+  }
+  string id = 0;
   string object = 1;
   string payment = 2;
   string user = 3;
-  string email = 4;
-  string provider = 5;
-  string stripe_payment_intent_id = 6;
-  PaymentIntent stripe_payment_intent = 7;
-  string currency = 8;
-  Items items = 9;
-  double subtotal = 10;
-  double total = 11;
-  string coupon = 12;
-  string status = 13;
-  string ip = 14;
-  double updated = 15;
-  double created = 16;
+  string refund = 4;
+  string email = 5;
+  string provider = 6;
+  string stripe_payment_intent_id = 7;
+  PaymentIntent stripe_payment_intent = 8;
+  string currency = 9;
+  Items items = 10;
+  double subtotal = 11;
+  double total = 12;
+  string coupon = 13;
+  string status = 14;
+  string ip = 15;
+  double updated = 16;
+  double created = 17;
+  TransactionError transaction_error = 18;
 }
 
 message Payment {
-  string object = 0;
-  string user = 1;
-  string email = 2;
-  string default_provider = 3;
-  string stripe_customer = 4;
-  repeated Transaction transactions = 5;
-  double updated = 6;
-  double created = 7;
+  string id = 0;
+  string object = 1;
+  string user = 2;
+  string email = 3;
+  string default_provider = 4;
+  string stripe_customer = 5;
+  repeated Transaction transactions = 6;
+  double updated = 7;
+  double created = 8;
 }

@@ -3,7 +3,7 @@ syntax = "proto3";
 package payment;
 
 message Metadata {
-  string user_id = 0;
+  string user = 0;
   string transaction = 1;
 }
 
