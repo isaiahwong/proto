@@ -141,7 +141,7 @@ message PaymentIntentRequest {
 
 message ReceiveOrderRequest {
   string order_id = 0;
-  string payerID = 1;
+  string payer_id = 1;
 }
 
 message Response {
