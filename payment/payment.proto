@@ -45,14 +45,14 @@ service PaymentService {
     };
   }
 
-  rpc StripeTestWebhook(PaymentIntentRequest) returns (Response) {
+  rpc StripeTestWebhook(StripeWebhook) returns (Response) {
     option http = {
       post: "/api/v1/payment/stripe/webhook/test",
       body: "*"
     };
   }
 
-  rpc StripePaymentIntentWebhook(PaymentIntentRequest) returns (Response) {
+  rpc StripePaymentIntentWebhook(StripeWebhook) returns (Response) {
     option http = {
       post: "/api/v1/payment/stripe/webhook/paymentintent",
       body: "*"
@@ -62,13 +62,13 @@ service PaymentService {
   /*
    * Paypal
    */
-   rpc PaypalRequestOrder(PaypalOrderRequest) returns (Response) {
+   rpc PaypalRequestOrder(PaypalOrderRequest) returns (PaypalLink) {
     option http = {
       post: "/api/v1/payment/p/request/order",
     };
    }
 
-   rpc PaypalTestWebhook(PaypalRequest) returns (Response) {
+   rpc PaypalTestWebhook(PaypalWebhook) returns (Response) {
     option http = {
       post: "/api/v1/payment/paypal/webhook/test",
       body: "*"
@@ -142,7 +142,7 @@ message SetupIntentResponse {
   string client_secret = 1;
 }
 
-message PaymentIntentRequest {
+message StripeWebhook {
   bytes body = 1;
 }
 
@@ -155,8 +155,16 @@ message PaypalOrderRequest {
   ApplicationContext application_context = 5;
 }
 
-message PaypalRequest {
-  
+message PaypalLink {
+  bool success = 0;
+  string href = 1;
+  string rel = 2;
+  string method = 3;
+
+}
+
+message PaypalWebhook {
+  bytes body = 1;
 }
 
 message Response {

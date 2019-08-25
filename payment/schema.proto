@@ -12,6 +12,7 @@ message Items {
     double quantity = 3;
     bytes metadata = 4;
     string currency = 5;
+    string description = 6;
   }
   string id = 0;
   string description = 1;
