@@ -3,6 +3,7 @@ syntax = "proto3";
 package payment;
 
 import "./schema.proto";
+import "./paypal.proto";
 import "./stripe.proto";
 
 service PaymentService {
@@ -61,12 +62,18 @@ service PaymentService {
   /*
    * Paypal
    */
-   rpc PaypalReceiveOrder(ReceiveOrderRequest) returns (Response) {
+   rpc PaypalRequestOrder(PaypalOrderRequest) returns (Response) {
     option http = {
-      post: "/api/v1/payment/p/receive/order",
-      body: "*"
+      post: "/api/v1/payment/p/request/order",
     };
    }
+
+   rpc PaypalTestWebhook(PaypalRequest) returns (Response) {
+    option http = {
+      post: "/api/v1/payment/paypal/webhook/test",
+      body: "*"
+    };
+  }
 }
 
 message CreatePaymentRequest {
@@ -139,9 +146,17 @@ message PaymentIntentRequest {
   bytes body = 1;
 }
 
-message ReceiveOrderRequest {
-  string order_id = 0;
-  string payer_id = 1;
+message PaypalOrderRequest {
+  string user = 0;
+  Items items = 1;
+  string currency = 2;
+  double total = 3;
+  string intent = 4;
+  ApplicationContext application_context = 5;
+}
+
+message PaypalRequest {
+  
 }
 
 message Response {
