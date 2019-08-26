@@ -62,7 +62,7 @@ service PaymentService {
   /*
    * Paypal
    */
-   rpc PaypalCreateOrder(PaypalCreateOrderRequest) returns (PaypalLink) {
+   rpc PaypalCreateOrder(PaypalCreateOrderRequest) returns (PaypalCreateOrderResponse) {
     option http = {
       post: "/api/v1/payment/p/order/create",
     };
@@ -166,11 +166,12 @@ message PaypalProcessOrderRequest {
   string order_id = 1;
 }
 
-message PaypalLink {
+message PaypalCreateOrderResponse {
   bool success = 0;
-  string href = 1;
-  string rel = 2;
-  string method = 3;
+  string order_id = 1;
+  string href = 2;
+  string rel = 3;
+  string method = 4;
 }
 
 message PaypalWebhook {
