@@ -65,7 +65,8 @@ message Transaction {
   string ip = 14;
   double updated = 15;
   double created = 16;
-  TransactionError transaction_error = 17;
+  double transitory_expires = 17;
+  TransactionError transaction_error = 18;
 }
 
 message Payment {

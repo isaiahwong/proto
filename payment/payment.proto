@@ -62,9 +62,15 @@ service PaymentService {
   /*
    * Paypal
    */
-   rpc PaypalRequestOrder(PaypalOrderRequest) returns (PaypalLink) {
+   rpc PaypalCreateOrder(PaypalCreateOrderRequest) returns (PaypalLink) {
     option http = {
-      post: "/api/v1/payment/p/request/order",
+      post: "/api/v1/payment/p/order/create",
+    };
+   }
+
+   rpc PaypalProcessOrder(PaypalProcessOrderRequest) returns (Response) {
+    option http = {
+      post: "/api/v1/payment/p/order/process",
     };
    }
 
@@ -146,7 +152,7 @@ message StripeWebhook {
   bytes body = 1;
 }
 
-message PaypalOrderRequest {
+message PaypalCreateOrderRequest {
   string user = 0;
   Items items = 1;
   string currency = 2;
@@ -155,12 +161,16 @@ message PaypalOrderRequest {
   ApplicationContext application_context = 5;
 }
 
+message PaypalProcessOrderRequest {
+  string user = 0;
+  string order_id = 1;
+}
+
 message PaypalLink {
   bool success = 0;
   string href = 1;
   string rel = 2;
   string method = 3;
-
 }
 
 message PaypalWebhook {
