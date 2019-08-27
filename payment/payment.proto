@@ -74,6 +74,13 @@ service PaymentService {
     };
    }
 
+   rpc PaypalOrderWebhook(PaypalWebhook) returns (Response) {
+    option http = {
+      post: "/api/v1/payment/paypal/webhook/order",
+      body: "*"
+    };
+  }
+
    rpc PaypalTestWebhook(PaypalWebhook) returns (Response) {
     option http = {
       post: "/api/v1/payment/paypal/webhook/test",
