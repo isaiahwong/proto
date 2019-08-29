@@ -31,7 +31,7 @@ message Refund {
   string id = 0;
   string object = 1;
   string transaction = 2;
-  string refund = 3;
+  string amount = 3;
   string currency = 4;
   string reason = 5;
   string status = 6;
@@ -39,6 +39,8 @@ message Refund {
   string failure_reason = 8;
   double updated = 16;
   double created = 17;
+  string stripe_refund = 18;
+  string paypal_refund = 19;
 }
 
 message Transaction {
