@@ -4,7 +4,7 @@ package mail;
 
 service MailService {
   rpc RegisterMailingList(EmailRequest) returns (EmailResponse) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/mail/r",
       body: "*"
     };

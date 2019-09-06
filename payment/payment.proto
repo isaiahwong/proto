@@ -1,10 +1,12 @@
 syntax = "proto3";
 
-package payment;
-
 import "./schema.proto";
 import "./paypal.proto";
 import "./stripe.proto";
+
+import "google/api/annotations.proto";
+
+package payment;
 
 service PaymentService {
   /*
@@ -13,13 +15,13 @@ service PaymentService {
   rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
 
   rpc RetrievePayment(RetrievePaymentRequest) returns (RetrievePaymentResponse) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/payment/retrieve",
     };
   }
 
   rpc Refund(RefundRequest) returns (RefundResponse) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/payment/refund",
     };
   }
@@ -28,32 +30,32 @@ service PaymentService {
    * Stripe
    */
   rpc StripeSetupIntent(SetupIntentRequest) returns (SetupIntentResponse) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/payment/s/intent/setup",
     };
   }
   
   rpc StripeAddCard(AddCardRequest) returns (AddCardResponse) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/payment/s/card/add",
     };
   }
 
   rpc StripeCharge(OnStripeChargeRequest) returns (OnStripeChargeResponse) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/payment/s/charge",
     };
   }
 
   rpc StripeTestWebhook(StripeWebhook) returns (Response) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/payment/stripe/webhook/test",
       body: "*"
     };
   }
 
   rpc StripePaymentIntentWebhook(StripeWebhook) returns (Response) {
-    option http = {
+    option (google.api.http) = {
       post: "/api/v1/payment/stripe/webhook/paymentintent",
       body: "*"
     };
@@ -62,27 +64,27 @@ service PaymentService {
   /*
    * Paypal
    */
-   rpc PaypalCreateOrder(PaypalCreateOrderRequest) returns (PaypalCreateOrderResponse) {
-    option http = {
+  rpc PaypalCreateOrder(PaypalCreateOrderRequest) returns (PaypalCreateOrderResponse) {
+    option (google.api.http) = {
       post: "/api/v1/payment/p/order/create",
     };
-   }
+  }
 
-   rpc PaypalProcessOrder(PaypalProcessOrderRequest) returns (Response) {
-    option http = {
+  rpc PaypalProcessOrder(PaypalProcessOrderRequest) returns (Response) {
+    option (google.api.http) = {
       post: "/api/v1/payment/p/order/process",
     };
-   }
+  }
 
-   rpc PaypalOrderWebhook(PaypalWebhook) returns (Response) {
-    option http = {
+  rpc PaypalOrderWebhook(PaypalWebhook) returns (Response) {
+    option (google.api.http) = {
       post: "/api/v1/payment/paypal/webhook/order",
       body: "*"
     };
   }
 
-   rpc PaypalTestWebhook(PaypalWebhook) returns (Response) {
-    option http = {
+  rpc PaypalTestWebhook(PaypalWebhook) returns (Response) {
+    option (google.api.http) = {
       post: "/api/v1/payment/paypal/webhook/test",
       body: "*"
     };
