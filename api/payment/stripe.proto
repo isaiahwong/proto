@@ -3,8 +3,8 @@ syntax = "proto3";
 package payment;
 
 message Metadata {
-  string user = 0;
-  string transaction = 1;
+  string user = 1;
+  string transaction = 2;
 }
 
 message BillingDetails {
@@ -29,17 +29,17 @@ message FraudDetails {
 
 message InvoiceSettings {
   message CustomFields {
-    string name = 0;
-    string value = 1;
+    string name = 1;
+    string value = 2;
   }
-  CustomFields custom_fields = 0;
-  string default_payment_method = 1;
-  string footer = 2;
+  CustomFields custom_fields = 1;
+  string default_payment_method = 2;
+  string footer = 3;
 }
 
 message Card {
   message THREEDSecureUsage {
-    bool supported = 0;
+    bool supported = 1;
   }
   string brand = 1;
   string country = 2;
@@ -52,15 +52,15 @@ message Card {
 }
 
 message PaymentMethod {
-  string id = 0;
-  string object = 1;
-  BillingDetails billing_details = 2;
-  Card card = 3;
-  double created = 4;
-  string customer = 5;
-  bool livemode = 6;
-  Metadata metadata = 7;
-  string type = 8;
+  string id = 1;
+  string object = 2;
+  BillingDetails billing_details = 3;
+  Card card = 4;
+  double created = 5;
+  string customer = 6;
+  bool livemode = 7;
+  Metadata metadata = 8;
+  string type = 9;
 }
 
 message PaymentMethodDetails {
@@ -100,19 +100,19 @@ message Charges {
   string object = 1;
   repeated Charge data = 2;
   bool has_more = 3;
-  double total_count = 4;
+  int64 total_count = 4;
   string url = 6;
 }
 
 message PaymentIntent {
   message LastPaymentError {
-    string charge = 0;
-    string code = 1;
-    string doc_url = 2;
-    string message = 3;
-    string type = 4;
-    string param = 5;
-    PaymentMethod payment_method = 6;
+    string charge = 1;
+    string code = 2;
+    string doc_url = 3;
+    string message = 4;
+    string type = 5;
+    string param = 6;
+    PaymentMethod payment_method = 7;
   }
   
 
@@ -142,27 +142,27 @@ message PaymentIntent {
 
 message SetupIntent {
   message LastSetupError {
-    string code = 0;
-    string decline_code = 1;
-    string doc_url = 2;
-    string message = 3;
-    string param = 4;
-    PaymentMethod payment_method = 5;
-    string type = 6;
+    string code = 1;
+    string decline_code = 2;
+    string doc_url = 3;
+    string message = 4;
+    string param = 5;
+    PaymentMethod payment_method = 6;
+    string type = 7;
   }
 
-  string id = 0;
-  string object = 1;
-  string cancellation_reason = 2;
-  string client_secret = 3;
-  double created = 4;
-  string customer = 5;
-  string description = 6;
-  LastSetupError last_setup_error = 7;
-  bool livemode = 8;
-  Metadata metadata = 9;
-  string payment_method = 10;
-  repeated string payment_method_types = 14;
-  string status = 15;
-  string usage = 16;
+  string id = 1;
+  string object = 2;
+  string cancellation_reason = 3;
+  string client_secret = 4;
+  double created = 5;
+  string customer = 6;
+  string description = 7;
+  LastSetupError last_setup_error = 8;
+  bool livemode = 9;
+  Metadata metadata = 10;
+  string payment_method = 11;
+  repeated string payment_method_types = 12;
+  string status = 13;
+  string usage = 14;
 }

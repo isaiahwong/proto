@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "./schema.proto";
-import "./paypal.proto";
-import "./stripe.proto";
+import "payment/schema.proto";
+import "payment/paypal.proto";
+import "payment/stripe.proto";
 
 import "google/api/annotations.proto";
 
@@ -12,17 +12,22 @@ service PaymentService {
   /*
    * Payment
    */
-  rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
+  rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse) {
+    option (google.api.http) = {
+      post: "/v1/payment/create",
+      body: "*"
+    };
+  };
 
   rpc RetrievePayment(RetrievePaymentRequest) returns (RetrievePaymentResponse) {
     option (google.api.http) = {
-      post: "/api/v1/payment/retrieve",
+      post: "/v1/payment/retrieve",
     };
   }
 
   rpc Refund(RefundRequest) returns (RefundResponse) {
     option (google.api.http) = {
-      post: "/api/v1/payment/refund",
+      post: "/v1/payment/refund",
     };
   }
 
@@ -31,32 +36,32 @@ service PaymentService {
    */
   rpc StripeSetupIntent(SetupIntentRequest) returns (SetupIntentResponse) {
     option (google.api.http) = {
-      post: "/api/v1/payment/s/intent/setup",
+      post: "/v1/payment/s/intent/setup",
     };
   }
   
   rpc StripeAddCard(AddCardRequest) returns (AddCardResponse) {
     option (google.api.http) = {
-      post: "/api/v1/payment/s/card/add",
+      post: "/v1/payment/s/card/add",
     };
   }
 
   rpc StripeCharge(OnStripeChargeRequest) returns (OnStripeChargeResponse) {
     option (google.api.http) = {
-      post: "/api/v1/payment/s/charge",
+      post: "/v1/payment/s/charge",
     };
   }
 
   rpc StripeTestWebhook(StripeWebhook) returns (Response) {
     option (google.api.http) = {
-      post: "/api/v1/payment/stripe/webhook/test",
+      post: "/v1/payment/stripe/webhook/test",
       body: "*"
     };
   }
 
   rpc StripePaymentIntentWebhook(StripeWebhook) returns (Response) {
     option (google.api.http) = {
-      post: "/api/v1/payment/stripe/webhook/paymentintent",
+      post: "/v1/payment/stripe/webhook/paymentintent",
       body: "*"
     };
   }
@@ -66,26 +71,26 @@ service PaymentService {
    */
   rpc PaypalCreateOrder(PaypalCreateOrderRequest) returns (PaypalCreateOrderResponse) {
     option (google.api.http) = {
-      post: "/api/v1/payment/p/order/create",
+      post: "/v1/payment/p/order/create",
     };
   }
 
   rpc PaypalProcessOrder(PaypalProcessOrderRequest) returns (Response) {
     option (google.api.http) = {
-      post: "/api/v1/payment/p/order/process",
+      post: "/v1/payment/p/order/process",
     };
   }
 
   rpc PaypalOrderWebhook(PaypalWebhook) returns (Response) {
     option (google.api.http) = {
-      post: "/api/v1/payment/paypal/webhook/order",
+      post: "/v1/payment/paypal/webhook/order",
       body: "*"
     };
   }
 
   rpc PaypalTestWebhook(PaypalWebhook) returns (Response) {
     option (google.api.http) = {
-      post: "/api/v1/payment/paypal/webhook/test",
+      post: "/v1/payment/paypal/webhook/test",
       body: "*"
     };
   }
@@ -97,64 +102,64 @@ message CreatePaymentRequest {
 }
 
 message CreatePaymentResponse {
-  bool success = 0;
-  Payment payment = 1;
+  bool success = 1;
+  Payment payment = 2;
 }
 
 message RetrievePaymentRequest {
-  string user = 0;
-}
-
-message RetrievePaymentResponse {
-  bool success = 0;
-  Payment payment = 1;
-}
-
-message RefundRequest {
-  string user = 0;
-  string transaction = 1;
-}
-
-message RefundResponse {
-  bool success = 0;
-  Refund refund = 1;
-  Transaction transaction = 2;
-}
-
-message AddCardRequest {
-  string payment_method = 0;
   string user = 1;
 }
 
+message RetrievePaymentResponse {
+  bool success = 1;
+  Payment payment = 2;
+}
+
+message RefundRequest {
+  string user = 1;
+  string transaction = 2;
+}
+
+message RefundResponse {
+  bool success = 1;
+  Refund refund = 2;
+  Transaction transaction = 3;
+}
+
+message AddCardRequest {
+  string payment_method = 1;
+  string user = 2;
+}
+
 message AddCardResponse {
-  repeated PaymentMethod all_cards = 0;
-  InvoiceSettings invoice_settings = 1; // default payment
-  bool success = 2;
+  repeated PaymentMethod all_cards = 1;
+  InvoiceSettings invoice_settings = 2; // default payment
+  bool success = 3;
 }
 
 message OnStripeChargeRequest {
-  string user = 0;
-  string email = 1;
-  Items items = 2;
-  string currency = 3;
-  double subtotal = 4;
-  double total = 5;
-  bool off_session = 6;
+  string user = 1;
+  string email = 2;
+  Items items = 3;
+  string currency = 4;
+  double subtotal = 5;
+  double total = 6;
+  bool off_session = 7;
 }
 
 message OnStripeChargeResponse {
-  PaymentIntent payment_intent = 0;
-  bool success = 1;
+  PaymentIntent payment_intent = 1;
+  bool success = 2;
 }
 
 message SetupIntentRequest {
-  string user = 0;
-  bool on_session  = 1;
+  string user = 1;
+  bool on_session  = 2;
 }
 
 message SetupIntentResponse {
-  bool success = 0;
-  string client_secret = 1;
+  bool success = 1;
+  string client_secret = 2;
 }
 
 message StripeWebhook {
@@ -162,25 +167,25 @@ message StripeWebhook {
 }
 
 message PaypalCreateOrderRequest {
-  string user = 0;
-  Items items = 1;
-  string currency = 2;
-  double total = 3;
-  string intent = 4;
-  ApplicationContext application_context = 5;
+  string user = 1;
+  Items items = 2;
+  string currency = 3;
+  double total = 4;
+  string intent = 5;
+  ApplicationContext application_context = 6;
 }
 
 message PaypalProcessOrderRequest {
-  string user = 0;
-  string order_id = 1;
+  string user = 1;
+  string order_id = 2;
 }
 
 message PaypalCreateOrderResponse {
-  bool success = 0;
-  string order_id = 1;
-  string href = 2;
-  string rel = 3;
-  string method = 4;
+  bool success = 1;
+  string order_id = 2;
+  string href = 3;
+  string rel = 4;
+  string method = 5;
 }
 
 message PaypalWebhook {
@@ -188,7 +193,7 @@ message PaypalWebhook {
 }
 
 message Response {
-  bool success = 0;
+  bool success = 1;
 }
 
 message Empty {}
