@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package payment;
+package api.payment;
+
+option go_package = "payment";
 
 message Metadata {
   string user = 1;

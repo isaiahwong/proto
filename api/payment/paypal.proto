@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package payment;
+package api.payment;
+
+option go_package = "payment";
 
 message ApplicationContext {
   string landing_page = 1;

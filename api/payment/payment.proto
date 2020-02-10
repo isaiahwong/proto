@@ -1,12 +1,14 @@
 syntax = "proto3";
 
+package api.payment;
+
+option go_package = "payment";
+
 import "payment/schema.proto";
 import "payment/paypal.proto";
 import "payment/stripe.proto";
 
 import "google/api/annotations.proto";
-
-package payment;
 
 service PaymentService {
   /*
@@ -22,6 +24,7 @@ service PaymentService {
   rpc RetrievePayment(RetrievePaymentRequest) returns (RetrievePaymentResponse) {
     option (google.api.http) = {
       post: "/v1/payment/retrieve",
+      body: "*"
     };
   }
 

@@ -1,5 +1,7 @@
 syntax = "proto3";
-  
+
+import "google/api/annotations.proto";
+
 package mail;
 
 service MailService {
@@ -37,12 +39,12 @@ message ResetPasswordRequest {
 }
 
 message EmailRequest {
-  string email = 0;
+  string email = 1;
 }
 
 message PaymentRequest {
-  string email = 0;
-  bytes payment = 1;
+  string email = 1;
+  bytes payment = 2;
 }
 
 message Empty {}
