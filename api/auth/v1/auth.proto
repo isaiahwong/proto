@@ -39,6 +39,7 @@ message SignUpRequest {
   string password = 2;
   string confirm_password = 3;
   string captcha_token = 4;
+  string ip = 5;
 }
 
 message SignInRequest {

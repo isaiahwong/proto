@@ -1,16 +1,13 @@
 syntax = "proto3";
 
+package api.v1.mail;
+
+option go_package="mail";
+
 import "google/api/annotations.proto";
 
-package mail;
-
 service MailService {
-  rpc RegisterMailingList(EmailRequest) returns (EmailResponse) {
-    option (google.api.http) = {
-      post: "/api/v1/mail/r",
-      body: "*"
-    };
-  }
+  rpc RegisterMailingList(EmailRequest) returns (EmailResponse) {}
 
   rpc SendAccountVerification(AccountVerificationRequest) returns (EmailResponse) {}
   rpc SendResetPassword(ResetPasswordRequest) returns (EmailResponse) {}
