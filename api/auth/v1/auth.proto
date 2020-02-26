@@ -45,6 +45,7 @@ message SignUpRequest {
 message SignInRequest {
   string email = 1;
   string password = 2;
+  string captcha_token = 3;
 }
 
 message UserResponse {
