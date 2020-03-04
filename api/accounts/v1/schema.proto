@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package api.v1.auth;
+package api.v1.accounts;
 
-option go_package = "auth";
+option go_package = "accounts";
 
 // Preferences
 message Preferences {
