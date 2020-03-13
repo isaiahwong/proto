@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package api.payment;
+package api.payment.v1;
 
 option go_package = "payment";
 
-import "payment/stripe.proto";
+import "payment/v1/stripe.proto";
 
 message Items {
   message Data {

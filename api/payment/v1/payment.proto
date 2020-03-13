@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package api.payment;
+package api.payment.v1;
 
 option go_package = "payment";
 
-import "payment/schema.proto";
-import "payment/paypal.proto";
-import "payment/stripe.proto";
+import "payment/v1/schema.proto";
+import "payment/v1/paypal.proto";
+import "payment/v1/stripe.proto";
 
 import "google/api/annotations.proto";
 
