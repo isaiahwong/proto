@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package api.v1.accounts;
+package api.accounts.v1;
 
 option go_package = "accounts";
 
@@ -64,7 +64,7 @@ message Auth {
   string password_hash_method = 9;
   string password_reset_id = 10;
   string password_reset_token = 11;
-  int64 password_reset_expires = 12;
+  int64 password_reset_expires = 12;  
   int64 password_modified = 13;
 
   bool verified = 14;
