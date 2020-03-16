@@ -9,6 +9,8 @@ import "google/api/annotations.proto";
 import "accounts/v1/schema.proto";
 
 service AccountsService {
+  rpc IsAuthWithChallenge(Empty) returns (HydraResponse) {}
+
   rpc IsAuthenticated(Empty) returns (AuthenticateResponse) {
     option (google.api.http) = {
       post: "/v1/accounts",
@@ -21,14 +23,32 @@ service AccountsService {
     };
   }
 
-  rpc Login(LoginRequest) returns (UserResponse) {
+  rpc Authenticate(AuthenticateRequest) returns (UserResponse) {
     option (google.api.http) = {
-      post: "/v1/accounts/login",
+      post: "/v1/accounts/authenticate",
+    };
+  }
+
+  rpc EmailExists(EmailExistsRequest) returns (EmailExistsResponse) {
+    option (google.api.http) = {
+      post: "/v1/accounts/email/exist",
     };
   }
 }
 
 message Empty {}
+
+message Body {
+  bytes payload = 1;
+}
+
+message HydraResponse {
+  string challenge = 1;
+  string request_url = 2;
+  string session_id = 3;
+  bool skip = 4;
+  string subject = 5;
+}
 
 message AuthenticateResponse {
   bool status = 1;
@@ -40,17 +60,23 @@ message SignUpRequest {
   string email = 3;
   string password = 4;
   string confirm_password = 5;
-  string captcha_token = 6;
-  string ip = 7;
 }
 
-message LoginRequest {
+message AuthenticateRequest {
   string email = 1;
   string password = 2;
   string captcha_token = 3;
-  string challenge = 4;
+}
+
+message EmailExistsRequest {
+  string email = 1;
+}
+
+message EmailExistsResponse {
+  bool exist = 1;
 }
 
 message UserResponse {
   User user = 1;
 }
+
