@@ -50,6 +50,7 @@ message HydraResponse {
   string session_id = 3;
   bool skip = 4;
   string subject = 5;
+  string redirect_to = 6;
 }
 
 message AuthenticateResponse {
