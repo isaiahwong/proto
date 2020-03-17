@@ -71,8 +71,6 @@ message Auth {
   int64 verified_date = 15;
   string verification_token = 16;
   int64 verification_token_expires = 17;
-
-  int64 captcha_challenge_ts = 18;
 }
 
 message Session {
