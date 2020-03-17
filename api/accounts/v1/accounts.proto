@@ -25,7 +25,7 @@ service AccountsService {
     };
   }
 
-  rpc Authenticate(AuthenticateRequest) returns (UserResponse) {
+  rpc Authenticate(AuthenticateRequest) returns (RedirectResponse) {
     option (google.api.http) = {
       post: "/v1/accounts/authenticate",
     };
