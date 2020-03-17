@@ -9,7 +9,9 @@ import "google/api/annotations.proto";
 import "accounts/v1/schema.proto";
 
 service AccountsService {
-  rpc IsAuthWithChallenge(Empty) returns (HydraResponse) {}
+  rpc LoginWithChallenge(Empty) returns (HydraResponse) {}
+
+  rpc ConsentWithChallenge(Empty) returns (RedirectResponse) {}
 
   rpc IsAuthenticated(Empty) returns (AuthenticateResponse) {
     option (google.api.http) = {
