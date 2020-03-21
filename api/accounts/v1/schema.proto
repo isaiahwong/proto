@@ -81,7 +81,7 @@ message Session {
   int32 long = 5;
 }
 
-message User {
+message Account {
   string id = 1;
   string object = 2;
   Auth auth = 3;

@@ -83,7 +83,7 @@ message RedirectResponse {
   string redirect_to = 1;
 }
 
-message UserResponse {
+message AccountResponse {
   string id = 1;
   string object = 2;
   string email = 3;
