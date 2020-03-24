@@ -5,13 +5,14 @@ package api.accounts.v1;
 option go_package = "accounts";
 
 import "google/api/annotations.proto";
-
 import "accounts/v1/schema.proto";
 
 service AccountsService {
   rpc LoginWithChallenge(Empty) returns (HydraResponse) {}
 
   rpc ConsentWithChallenge(Empty) returns (RedirectResponse) {}
+
+  rpc Introspect(IntrospectRequest) returns (IntrospectResponse) {}
 
   rpc IsAuthenticated(Empty) returns (AuthenticateResponse) {
     option (google.api.http) = {
@@ -93,3 +94,23 @@ message AccountResponse {
   string picture = 7;
 }
 
+message IntrospectRequest {
+  string token = 1;
+  string scope = 2;
+}
+
+message IntrospectResponse {
+  bool active = 1;
+  repeated string aud = 2;
+  string client_id = 3;
+  int64 exp = 4;
+  bytes ext = 5;
+  int64 iat = 6;
+  string iss = 7;
+  int64 nbf = 8;
+  string obfuscated_subject = 9;
+  string scope = 10;
+  string sub = 11;
+  string token_type = 12;
+  string username = 13;
+}
