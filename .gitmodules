@@ -1,0 +1,3 @@
+[submodule "accounts-proto"]
+	path = accounts-proto
+	url = https://github.com/isaiahwong/accounts-proto.git
